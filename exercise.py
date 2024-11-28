@@ -1,3 +1,6 @@
+from math import pi
+
+
 """
 Python Functions Workshop Exercises
 ---------------------------------
@@ -15,7 +18,8 @@ def greet_user():
     - Confusing print with return
     - Inconsistent indentation
     """
-    pass  # TODO: Implement this function
+    # TODO: Implement this function
+    print('Hello, World!')
   
 
 # Exercise 2: Function Parameters and Type Hints
@@ -38,11 +42,15 @@ def personalized_greeting(name):
         >>> personalized_greeting(123)
         Raises TypeError
     """
-    pass  # TODO: Implement this function
+    # TODO: Implement this function
+    if name and isinstance(name, str):
+        return f"Hello, {name}!"
+    else:
+        raise TypeError
   
 
 # Exercise 3: Multiple Parameters and Default Values
-def calculate_rectangle_area(length, width):
+def calculate_rectangle_area(length, width = None):
     """
     Calculate the area of a rectangle. If width is not provided, calculate area of a square.
     
@@ -62,7 +70,15 @@ def calculate_rectangle_area(length, width):
     - Not validating parameter types
     - Using mutable default values
     """
-    pass  # TODO: Implement this function
+    # TODO: Implement this function
+    if length < 0 or width < 0:
+        raise ValueError
+    if not isinstance(length, (int, float)) or not isinstance(width, (int, float)):
+        raise TypeError
+    else:
+        if not width:
+            width = length
+        return length * width
   
 
 # Exercise 4: Global vs Local Scope
@@ -80,10 +96,17 @@ def update_score(points):
         
     Common mistakes to avoid:
     - Forgetting 'global' keyword
-    - Shadowing global variables
+    - Shadowing global variables **********************
     - Overusing global variables
     """
-    pass  # TODO: Implement this function
+    # TODO: Implement this function
+    global score
+    
+    if not isinstance(points, (int, float)):
+        raise TypeError
+    else:
+        score += points
+    return score
   
 
 # Exercise 5: Multiple Return Values and Tuple Unpacking
@@ -102,7 +125,13 @@ def get_circle_properties(radius):
         >>> print(f"Area: {area:.2f}, Circumference: {circumference:.2f}")
         Area: 3.14, Circumference: 6.28
     """
-    pass  # TODO: Implement this function
+    # TODO: Implement this function
+    if radius < 0:
+        raise ValueError
+    else:
+        area = pi * (radius ** 2)
+        circumference = 2 * pi * radius
+        return area, circumference
   
 
 # Exercise 6: Input Validation and Error Handling
@@ -121,7 +150,13 @@ def calculate_bmi(weight, height):
         ValueError: If weight or height is negative or zero
         TypeError: If inputs are not numbers
     """
-    pass  # TODO: Implement this function
+    # TODO: Implement this function
+    if height <= 0 or weight <= 0:
+        raise ValueError
+    if not isinstance(height, (int, float)) or not isinstance(weight, (int, float)):
+        raise TypeError
+    else:
+        return weight / (height ** 2)
   
 
 # Exercise 7: Recursion with Base Case and Error Handling
@@ -142,9 +177,16 @@ def factorial(n):
     Common mistakes to avoid:
     - Missing base case
     - Not handling negative numbers
-    - Not considering stack overflow
+    - Not considering stack overflow **********************
     """
-    pass  # TODO: Implement this function
+    # TODO: Implement this function
+    if n < 0:
+        raise ValueError
+    if not isinstance(n, int):
+        raise TypeError
+    if n == 0:
+        return 1
+    return n * factorial(n -1)
   
 
 # Exercise 8: Complex Return Types and Dictionary Handling
@@ -171,7 +213,20 @@ def analyze_numbers(numbers):
         >>> print(f"Average: {stats['average']}")
         Average: 3.0
     """
-    pass  # TODO: Implement this function
+    # TODO: Implement this function
+    if numbers == []:
+        raise ValueError
+    
+    for i in numbers:
+        if not isinstance(i, (int, float)):
+            raise TypeError
+    
+    _sum = sum(numbers)
+    average = _sum / len(numbers)
+    maximum = max(numbers)
+    minnimum = min(numbers)
+    
+    return {"sum":_sum, "average":average, "maximum":maximum, "minimum":minnimum}
   
 
 # Exercise 9: Default Parameters and Type Checking
@@ -191,11 +246,18 @@ def create_profile(name, age, occupation="Student"):
         TypeError: If name is not str or age is not int
         ValueError: If age is negative
     """
-    pass  # TODO: Implement this function
+    # TODO: Implement this function
+    if not isinstance(name, str) or not isinstance(age, int):
+        raise TypeError
+    
+    if age < 0:
+        raise ValueError
+    
+    return {"name":name, "age":age, "occupation":occupation}
   
 
 # Exercise 10: Complex Logic and Multiple Validation
-def validate_password(password):
+def validate_password(password: str):
   
     """
     Validate a password based on multiple criteria
@@ -233,7 +295,20 @@ def validate_password(password):
     - Not checking all criteria independently
     - Forgetting to validate input type before processing
     """
-    pass  # TODO: Implement this function
+    # TODO: Implement this function
+    if not isinstance(password, str):
+        raise TypeError
+    
+    if len(password) < 8:
+        return False
+    
+    if password.isalpha() or password.isnumeric():
+        return False
+    
+    if password.isupper() or password.islower():
+        return False
+    
+    else: return True
 
 
 if __name__ == "__main__":
